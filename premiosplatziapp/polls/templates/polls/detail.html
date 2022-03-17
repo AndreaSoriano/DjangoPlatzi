@@ -1,5 +1,8 @@
+{% comment "action se ingresa la url a la vista que va ejecutar con el parámetro" %}{% endcomment %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% comment "Proteger de ataque conocido como CrossSiteRequestForgery" %}{% endcomment %}
     {% csrf_token %}
+    {% comment "Conjunto de atributos" %}{% endcomment %}
     <fieldset>
         <legend>
             <h1>{{ question.question_text }}</h1>
@@ -12,9 +15,14 @@
         {% for choice in question.choice_set.all %}
             <input type="radio"
                    name="choice"
+                   {% comment "id con qe se maneja en el HTML" %}
+                   {% endcomment %}
                    id="choice{{ forloop.counter }}"
+                   {% comment "id con que se registra en la base de datos" %}{% endcomment %}
                    value="{{ choice.id }}">
-            <label for="choice{{ forloop.coounter }}">{{ choice.choice_text }}</label>
+            <label for="choice{{ forloop.coounter }}">
+                {{ choice.choice_text }}
+            </label>
             <br>
         {% endfor %}
     </fieldset>
