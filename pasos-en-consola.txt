@@ -1,0 +1,68 @@
+#Crear carpeta de proyecto
+mkdir proyecto
+
+#Ingresar a carpeta de proyecto				\proyecto
+cd proyecto
+
+#Crear entorno virtual en la carpeta de proyecto	\proyecto
+python -m venv venv
+
+#Entrar al entorno virtual				(venv) \proyecto
+.\venv\Scripts\activate
+
+##Instalar django en caso de no tenerlo instalado	(venv) \proyecto
+pip install django
+
+#Iniciar proyecto en github				(venv) \proyecto
+git init
+
+#Iniciar proyecto en django 				(venv) \proyecto
+django-admin startproject nombre-de-proyecto-django
+
+#Crear archivo gitignore para evitar llevar al 
+#repositorio remoto los contenidos de la carpeta venv	(venv) \proyecto
+fsutil file createnew .gitignore 0
+	
+#Ingresar a carpeta de proyecto en django		(venv) \proyecto\proyectoDjango
+cd nombre-de-proyecto-django"
+#Esta carpeta ya contiene los archivos manage.py y el paquete del proyecto django
+
+#Ver el servidor local de django			(venv) \proyecto\proyectoDjango
+python manage.py runserver
+#Podemos ver el servidor de desarrollo en la direccion ip que nos presenta
+
+#Iniciar app dentro del proyecto en django		(venv) \proyecto\proyectoDjango
+python manage.py startapp aplicacion
+
+#Reiniciar servidor si es necesario			(venv) \proyecto\proyectoDjango
+ctrl+c
+python manage.py runserver
+
+#Añadir archivos modificados antes de 			(venv) \proyecto\proyectoDjango
+#realizar cualquier cambio				
+git add -A
+
+#Comentario						(venv) \proyecto\proyectoDjango
+git commit -m "Primer commit"
+
+#Una vez creadas las clases en models de la 		(venv) \proyecto\proyectoDjango
+#aplicación, migraremos las clases/modelos a la base de datos
+python manage.py makemigrations aplicacion
+python manage.py migrate
+#También se deben ejecutar en caso de realizar cambios en los modelos
+#No es necesario ejecutarlo si se agregan funciones en los modelos
+
+#Ingresar a la consola interactiva del proyecto		(venv) \proyecto\proyectoDjango
+#la cual nos permite programar en el proyecto sin necesidad de tocar código
+python manage.py shell
+#Aqui podemos crear objetos en base a los modelos creados previamente
+#Pasos en archivo consola-interactiva.txt
+
+#Crear un super usuario					(venv) \proyecto\proyectoDjango
+python manage.
+
+
+
+
+
+

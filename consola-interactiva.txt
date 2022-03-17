@@ -1,0 +1,52 @@
+(venv) C:\Users\ezm\Documents\Platzi\code\premiosplatzi\premiosplatziapp>python manage.py shell
+Python 3.10.2 (tags/v3.10.2:a58ebcc, Jan 17 2022, 14:12:15) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from polls.models import Choice, Question
+>>> from django.utils import timezone
+
+>>> #Se puede visualizar el texto del question_text gracias a la funcion __str__
+>>> Question.objects.all()
+<QuerySet [<Question: ¿Cual es el mejor curso de Platzi?>, <Question: Quien es el mejor profesor en Platzi?>, <Question: Cual es la mejor escuela en Platzi?>, <Question: ¿Cuando es tu cumple?>, <Question: ¿Qué edad tienes?>, <Question: ¿Cuáles son tus habilidades?>, <Question: ¿En qué trabajas?>]>
+
+>>> #Se crea un nuevo modelo con sus atributos
+>>> Question(question_text="¿Cómo te va?",pub_date=timezone.now()).save()
+
+>>> #Clase.objects.all() Retorna todos los objetos existentes en la clase
+>>> Question.objects.all() 
+<QuerySet [<Question: ¿Cual es el mejor curso de Platzi?>, <Question: Quien es el mejor profesor en Platzi?>, <Question: Cual es la mejor escuela en Platzi?>, <Question: ¿Cuando es tu cumple?>, <Question: ¿Qué edad tienes?>, <Question: ¿Cuáles son tus habilidades?>, <Question: ¿En qué trabajas?>, <Question: ¿Cómo te va?>]>
+
+>>> #El método get solo puede retornar 1 objeto
+>>> Question.objects.get(pk=1)
+<Question: ¿Cual es el mejor curso de Platzi?>
+>>> Question.objects.get(pk=2)
+<Question: Quien es el mejor profesor en Platzi?>
+>>> Question.objects.get(pk=3)
+<Question: Cual es la mejor escuela en Platzi?>
+
+>>> #Filter retorna un QuerySet de varios objetos que cumplan con dicha condición
+>>> Question.objects.filter(question_text__startswith="¿")
+<QuerySet [<Question: ¿Cual es el mejor curso de Platzi?>, <Question: ¿Cuando es tu cumple?>, <Question: ¿Qué edad tienes?>, <Question: ¿Cuáles son tus habilidades?>, <Question: ¿En qué trabajas?>, <Question: ¿Cómo te va?>]>
+>>> Question.objects.filter(pub_date__year=timezone.now().year)
+<QuerySet [<Question: ¿Cual es el mejor curso de Platzi?>, <Question: Quien es el mejor profesor en Platzi?>, <Question: Cual es la mejor escuela en Platzi?>, <Question: ¿Cuando es tu cumple?>, <Question: ¿Qué edad tienes?>, <Question: ¿Cuáles son tus habilidades?>, <Question: ¿En qué trabajas?>, <Question: ¿Cómo te va?>]>
+>>> q = Question.objects.get(pk=5)
+>>> q
+<Question: ¿Qué edad tienes?>
+
+>>> #El método claseP.claseF_set.all() retorna todos los objetos de dicha clave foreana
+>>> q.choice_set.all()
+<QuerySet []>
+
+>>> #El método claseP.claseF_set.create(atributos) permite crear un nuevo objeto referenciada a una claseP
+>>> q.choice_set.create(choice_text="Tengo 18 años")
+<Choice: Tengo 18 años>
+>>> q.choice_set.create(choice_text="Tengo 23 años")
+<Choice: Tengo 23 años>
+>>> q.choice_set.create(choice_text="Tengo 30 años")
+<Choice: Tengo 30 años>
+>>> q.choice_set.all()
+<QuerySet [<Choice: Tengo 18 años>, <Choice: Tengo 23 años>, <Choice: Tengo 30 años>]>
+
+>>> #Contabiliza los objetos existentes
+>>> q.choice_set.count() 
+3
