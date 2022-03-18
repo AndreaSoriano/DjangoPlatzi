@@ -61,6 +61,8 @@ python manage.py shell
 #Crear un super usuario					(venv) \proyecto\proyectoDjango
 python manage.py createsuperuser
 
+#Realizar test						(venv) \proyecto\proyectoDjango
+python manage.py test aplicacion
 
 
 
